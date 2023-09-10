@@ -35,6 +35,29 @@
             </plugin>
 
             <plugin>
+                <groupId>org.graalvm.buildtools</groupId>
+                <artifactId>native-maven-plugin</artifactId>
+                <version>0.9.26</version>
+                <extensions>true</extensions>
+                <executions>
+                    <execution>
+                        <id>build-native</id>
+                        <goals>
+                            <goal>compile-no-fork</goal>
+                        </goals>
+                        <phase>package</phase>
+                    </execution>
+                </executions>
+                <configuration>
+                    <verbose>true</verbose>
+                    <quickBuild>true</quickBuild>
+                    <imageName>http-server</imageName>
+                    <mainClass>ir.moke.MainRunner</mainClass>
+                    <fallback>false</fallback>
+                </configuration>
+            </plugin>
+
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>

@@ -24,16 +24,9 @@ public class PersonApi implements HttpHandler {
         exchange.getResponseHeaders().add("Content-Type", "application/json");
         String requestMethod = exchange.getRequestMethod();
         switch (requestMethod) {
-            case "GET":
-                getPerson(exchange);
-                break;
-            case "POST":
-            case "PUT":
-                addPerson(exchange);
-                break;
-            case "DELETE":
-                deletePerson(exchange);
-                break;
+            case "GET" -> getPerson(exchange);
+            case "POST", "PUT" -> addPerson(exchange);
+            case "DELETE" -> deletePerson(exchange);
         }
     }
 
@@ -94,7 +87,7 @@ public class PersonApi implements HttpHandler {
             responseBody.flush();
             responseBody.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 

@@ -1,0 +1,35 @@
+#!/bin/bash 
+
+### Make RootFS ### 
+LIBS=$(ldd target/http-server | grep -v linux-vdso.so.1 | grep -v ld-linux | awk '{print $3}') 
+
+ROOTFS_DIR="docker/rootfs"
+
+rm -rf $ROOTFS_DIR 2> /dev/null
+mkdir -p $ROOTFS_DIR
+
+for I in ${LIBS[@]}
+do 
+    DIR=$(dirname $I) 
+    mkdir -p $ROOTFS_DIR/$DIR 
+    cp $I $ROOTFS_DIR/$DIR 
+done 
+
+mkdir $ROOTFS_DIR/lib64 
+cp /lib64/ld-linux-x86-64.so.2 $ROOTFS_DIR/lib64 
+
+cp target/http-server $ROOTFS_DIR 
+
+### Make Docker Image ### 
+IMAGES_EXISTS=$(docker images | grep -i empty)
+if [[ -z $IMAGES_EXISTS ]] ; then 
+    tar -cf empty.tar -T /dev/null 
+    docker import empty.tar empty:latest
+fi 
+
+(cd docker ; docker build . -t http-server:latest)
+
+### Clean up environment ### 
+rm empty.tar  2> /dev/null 
+docker rmi -f empty 2> /dev/null
+rm -rf $ROOTFS_DIR 2> /dev/null

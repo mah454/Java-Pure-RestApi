@@ -2,6 +2,7 @@ package ir.moke;
 
 import com.sun.net.httpserver.HttpServer;
 import ir.moke.api.PersonApi;
+import ir.moke.api.UploadFileApi;
 import ir.moke.html.IndexPage;
 import ir.moke.html.RedirectPage;
 
@@ -21,9 +22,10 @@ public class MainRunner {
             httpServer.createContext("/", new IndexPage());
             httpServer.createContext("/redirect", new RedirectPage());
             httpServer.createContext("/api/v1/person", new PersonApi());
+            httpServer.createContext("/api/v1/upload", new UploadFileApi());
             httpServer.start();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 }
