@@ -13,6 +13,7 @@ import java.util.Base64;
 
 public class UploadFileApi implements HttpHandler {
     private static final Gson gson = new Gson();
+
     public UploadFileApi() {
         System.out.println("UploadFileApi: singleton object");
     }
@@ -41,7 +42,8 @@ public class UploadFileApi implements HttpHandler {
                 }
             }
         }
-        sendResponse(exchange, "".getBytes(), 200);
+        setResponseCORSHeaders(exchange);
+        sendResponse(exchange, "".getBytes(), 204);
     }
 
 
@@ -58,13 +60,22 @@ public class UploadFileApi implements HttpHandler {
 
     private void sendResponse(HttpExchange exchange, byte[] response, int statusCode) {
         try {
-            exchange.sendResponseHeaders(statusCode, response.length);
+            int contentLength = statusCode == 204 ? -1 : response.length;
+            exchange.sendResponseHeaders(statusCode, contentLength);
             OutputStream responseBody = exchange.getResponseBody();
             responseBody.write(response);
             responseBody.flush();
             responseBody.close();
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    private void setResponseCORSHeaders(HttpExchange httpExchange) {
+        httpExchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
+        if (httpExchange.getRequestMethod().equalsIgnoreCase("OPTIONS")) {
+            httpExchange.getResponseHeaders().add("Access-Control-Allow-Methods", "GET, OPTIONS");
+            httpExchange.getResponseHeaders().add("Access-Control-Allow-Headers", "Content-Type,Authorization");
         }
     }
 }
