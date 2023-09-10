@@ -3,13 +3,15 @@
 implement simple http server with a html/css page and simple rest api 
 
 ### build :          
-`mvn clean compile package`
+```shell
+mvn clean compile package
+```
 
 
 ### test api:
 
 **Note:** _please install `httpie` package on linux_
-```shell script
+```shell
 # Get all persons: (GET)
 http "http://localhost:8080/api/v1/person"
 
