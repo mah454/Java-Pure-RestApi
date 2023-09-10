@@ -13,6 +13,9 @@ import java.util.Base64;
 
 public class UploadFileApi implements HttpHandler {
     private static final Gson gson = new Gson();
+    public UploadFileApi() {
+        System.out.println("UploadFileApi: singleton object");
+    }
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {

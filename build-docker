@@ -1,9 +1,17 @@
 #!/bin/bash 
 
 ### Make RootFS ### 
-LIBS=$(ldd target/http-server | grep -v linux-vdso.so.1 | grep -v ld-linux | awk '{print $3}') 
 
 ROOTFS_DIR="docker/rootfs"
+BUILD_BINARY="target/http-server" 
+
+if [ ! -f $BUILD_BINARY ] ; then 
+    echo "Please compile project" 
+    echo "Run: mvn clean compile package" 
+    exit 1 
+fi
+
+LIBS=$(ldd target/http-server | grep -v linux-vdso.so.1 | grep -v ld-linux | awk '{print $3}') 
 
 rm -rf $ROOTFS_DIR 2> /dev/null
 mkdir -p $ROOTFS_DIR
