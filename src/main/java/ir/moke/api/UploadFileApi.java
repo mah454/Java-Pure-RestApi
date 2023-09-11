@@ -32,6 +32,7 @@ public class UploadFileApi implements HttpHandler {
                     if (jsonObject.has("file")) {
                         String base64File = jsonObject.get("file").getAsString();
                         storeFile(base64File);
+                        System.out.println("Upload Finished");
                     } else {
                         sendResponse(exchange, "Invalid json".getBytes(), 400);
                     }
