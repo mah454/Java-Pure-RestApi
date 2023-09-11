@@ -24,11 +24,10 @@ public class UploadFileApi implements HttpHandler {
         System.out.println("Request method: " + method);
         if (method.equalsIgnoreCase("post")) {
             byte[] allBytes = exchange.getRequestBody().readAllBytes();
-            System.out.println("Request length: " + allBytes.length);
+            System.out.println("Start fetch data, Request length: " + allBytes.length);
             if (allBytes.length > 0) {
                 try {
                     String content = new String(allBytes);
-                    System.out.println("Content: " + content);
                     JsonObject jsonObject = gson.fromJson(content, JsonObject.class);
                     if (jsonObject.has("file")) {
                         String base64File = jsonObject.get("file").getAsString();
@@ -45,7 +44,6 @@ public class UploadFileApi implements HttpHandler {
         setResponseCORSHeaders(exchange);
         sendResponse(exchange, "".getBytes(), 204);
     }
-
 
     private static void storeFile(String b64) {
         byte[] fileContent = Base64.getDecoder().decode(b64);
