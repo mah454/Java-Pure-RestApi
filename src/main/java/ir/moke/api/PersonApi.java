@@ -5,6 +5,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import ir.moke.db.Person;
 import ir.moke.db.PersonDAO;
+import ir.moke.utils.JsonUtils;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -71,11 +72,10 @@ public class PersonApi implements HttpHandler {
 
     public void addPerson(HttpExchange exchange) throws IOException {
         byte[] bytes = exchange.getRequestBody().readAllBytes();
-        Gson gson = new Gson();
-        Person person = gson.fromJson(new String(bytes), Person.class);
+        Person person = JsonUtils.fromJson(new String(bytes), Person.class);
         dao.save(person);
 
-        String response = gson.toJson(person); //response with last person id
+        String response = JsonUtils.toJson(person); //response with last person id
         sendResponse(exchange, response.getBytes(), 200);
     }
 

@@ -2,6 +2,7 @@ package ir.moke;
 
 import com.sun.net.httpserver.HttpServer;
 import ir.moke.api.PersonApi;
+import ir.moke.api.SseApi;
 import ir.moke.api.UploadFileApi;
 import ir.moke.html.IndexPage;
 import ir.moke.html.RedirectPage;
@@ -31,6 +32,7 @@ public class MainRunner {
             httpServer.createContext("/redirect", new RedirectPage());
             httpServer.createContext("/api/v1/person", new PersonApi());
             httpServer.createContext("/api/v1/upload", new UploadFileApi());
+            httpServer.createContext("/api/v1/sse", new SseApi());
 
             System.out.printf("Http server started on 0.0.0.0:%s%n", PORT);
             httpServer.start();
