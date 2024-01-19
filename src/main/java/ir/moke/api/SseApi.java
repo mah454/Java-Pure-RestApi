@@ -27,18 +27,6 @@ public class SseApi implements HttpHandler {
         writer.close();
     }
 
-    private void sendResponse(HttpExchange exchange, byte[] response, int statusCode) {
-        try {
-            exchange.sendResponseHeaders(statusCode, response.length);
-            OutputStream responseBody = exchange.getResponseBody();
-            responseBody.write(response);
-            responseBody.flush();
-            responseBody.close();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     private static void sleep() {
         try {
             Thread.sleep(2000);
