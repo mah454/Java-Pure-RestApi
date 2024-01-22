@@ -6,6 +6,8 @@ import ir.moke.api.SseApi;
 import ir.moke.api.UploadFileApi;
 import ir.moke.html.IndexPage;
 import ir.moke.html.RedirectPage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -14,6 +16,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class MainRunner {
+    private static final Logger logger = LoggerFactory.getLogger(MainRunner.class);
     private static int PORT = 8080;
 
     static {
@@ -34,7 +37,7 @@ public class MainRunner {
             httpServer.createContext("/api/v1/upload", new UploadFileApi());
             httpServer.createContext("/api/v1/sse", new SseApi());
 
-            System.out.printf("Http server started on 0.0.0.0:%s%n", PORT);
+            logger.info(String.format("Http server started on 0.0.0.0:%s%n", PORT));
             httpServer.start();
         } catch (IOException e) {
             throw new RuntimeException(e);
