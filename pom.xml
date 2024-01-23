@@ -64,7 +64,7 @@
                     <imageName>http-server</imageName>
 		    <mainClass>ir.moke.MainRunner</mainClass>
 		    <buildArgs>
-		        <buildArgs>--initialize-at-build-time=ch.qos.logback,org.slf4j</buildArgs>
+		        <buildArgs>--initialize-at-build-time=ch.qos.logback,org.slf4j,com.google.gson</buildArgs>
 		        <buildArgs>-H:ReflectionConfigurationFiles=src/main/resources/META-INF/reflection-config.json</buildArgs>
 		        <buildArgs>-H:+UnlockExperimentalVMOptions</buildArgs>
 	            </buildArgs>

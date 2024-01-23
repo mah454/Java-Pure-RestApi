@@ -1,5 +1,7 @@
 package ir.moke.db;
 
+import ir.moke.utils.JsonUtils;
+
 public class Person {
     private int id ;
     private String name ;
@@ -33,5 +35,18 @@ public class Person {
 
     public void setFamily(String family) {
         this.family = family;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", family='" + family + '\'' +
+                '}';
+    }
+
+    public String toJson() {
+        return JsonUtils.toJson(this);
     }
 }
