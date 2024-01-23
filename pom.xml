@@ -8,11 +8,6 @@
     <artifactId>Java-Pure-RestApi</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <properties>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>com.google.code.gson</groupId>
@@ -45,7 +40,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <release>17</release>
+                    <release>21</release>
                 </configuration>
             </plugin>
 
@@ -67,7 +62,12 @@
                     <verbose>true</verbose>
                     <quickBuild>true</quickBuild>
                     <imageName>http-server</imageName>
-                    <mainClass>ir.moke.MainRunner</mainClass>
+		    <mainClass>ir.moke.MainRunner</mainClass>
+		    <buildArgs>
+		        <buildArgs>--initialize-at-build-time=ch.qos.logback,org.slf4j</buildArgs>
+		        <buildArgs>-H:ReflectionConfigurationFiles=src/main/resources/META-INF/reflection-config.json</buildArgs>
+		        <buildArgs>-H:+UnlockExperimentalVMOptions</buildArgs>
+	            </buildArgs>
                     <fallback>false</fallback>
                 </configuration>
             </plugin>
@@ -108,7 +108,21 @@
                     </archive>
                 </configuration>
             </plugin>
-
+            <plugin>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>exec-maven-plugin</artifactId>
+              <version>3.1.1</version>
+              <executions>
+                <execution>
+                  <goals>
+                    <goal>java</goal>
+                  </goals>
+                </execution>
+              </executions>
+              <configuration>
+                <mainClass>ir.moke.MainRunner</mainClass>
+              </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>
