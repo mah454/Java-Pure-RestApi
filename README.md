@@ -27,7 +27,7 @@ mvn clean compile package
 
 ### Run server (native-image):
 ```shell
-   ./target/http-server
+./target/http-server
 ```
 
 ### test api:
