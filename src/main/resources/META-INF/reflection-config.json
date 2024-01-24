@@ -1,26 +1,5 @@
 [
   {
-    "name": "ir.moke.db.Person",
-    "allDeclaredConstructors": true,
-    "allPublicConstructors": true,
-    "allDeclaredMethods": true,
-    "allPublicMethods": true
-  },
-  {
-    "name": "ir.moke.db.Person",
-    "fields": [
-      {
-        "name": "id"
-      },
-      {
-        "name": "name"
-      },
-      {
-        "name": "family"
-      }
-    ]
-  },
-  {
     "name": "ch.qos.logback.classic.pattern.DateConverter",
     "allDeclaredConstructors": true
   },
