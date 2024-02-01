@@ -2,7 +2,7 @@
 
 implement simple http server with a html/css page and simple rest api    
 
-### Build Environmenr : 
+### Build Environment : 
 ```shell
 > java -version 
 openjdk version "21.0.1" 2023-10-17
