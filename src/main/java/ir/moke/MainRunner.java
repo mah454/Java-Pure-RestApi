@@ -1,6 +1,7 @@
 package ir.moke;
 
 import com.sun.net.httpserver.HttpServer;
+import ir.moke.api.DownloadFileApi;
 import ir.moke.api.PersonApi;
 import ir.moke.api.SseApi;
 import ir.moke.api.UploadFileApi;
@@ -36,6 +37,7 @@ public class MainRunner {
             httpServer.createContext("/api/v1/person", new PersonApi());
             httpServer.createContext("/api/v1/upload", new UploadFileApi());
             httpServer.createContext("/api/v1/sse", new SseApi());
+            httpServer.createContext("/api/v1/download", new DownloadFileApi());
 
             logger.info(String.format("Http server started on 0.0.0.0:%s%n", PORT));
             httpServer.start();
